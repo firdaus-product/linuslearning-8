@@ -1,474 +1,644 @@
 <!DOCTYPE html>
-<html lang="ms-MY">
+<html lang="ms-MY" class="overflow-hidden overscroll-none">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pemulihan: Nombor 11-20 Lengkap</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pemulihan: Nombor 11-20 Lengkap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <style>
-    /* --- UI STYLE (MASTER TEMA HIJAU) --- */
-    body { 
-        font-family: 'Fredoka', sans-serif; 
-        background-color: #f0fdf4; 
-        background-image: radial-gradient(#86efac 2px, transparent 2px); 
-        background-size: 30px 30px; 
-        user-select: none; /* Elak select text tak sengaja */
-    }
-    
-    .game-card { 
-        background: white; 
-        border: 4px solid #475569; 
-        box-shadow: 8px 8px 0px #00000020; 
-        border-radius: 1.5rem; 
-        min-height: 600px; 
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        overflow: hidden; 
-    }
-    
-    /* Butang 3D */
-    .btn-3d { 
-        transition: all 0.1s; 
-        border-bottom-width: 6px; 
-        border-color: rgba(0,0,0,0.2); 
-        transform: translateY(0); 
-        cursor: pointer; 
-        display: inline-block; 
-    }
-    .btn-3d:active:not(:disabled) { transform: translateY(4px); border-bottom-width: 2px; box-shadow: none; }
-    .btn-3d:disabled { filter: grayscale(100%); opacity: 0.6; cursor: not-allowed; }
-    
-    /* Animasi */
-    .pop-in { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-    .shake { animation: shake 0.5s; }
-    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    <style>
+        /* --- UI STYLE (MASTER TEMA HIJAU) --- */
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #f0fdf4;
+            background-image: radial-gradient(#86efac 2px, transparent 2px);
+            background-size: 30px 30px;
+            user-select: none;
+            /* Elak select text tak sengaja */
+        }
 
-    /* --- STYLES KHAS AKTIVITI --- */
-    .flip-card { transition: transform 0.1s; cursor: pointer; }
-    .flip-card:active { transform: scale(0.95); }
-    
-    .digit-btn { transition: all 0.2s; border: 2px solid transparent; cursor: pointer; }
-    .digit-btn:hover { background-color: rgba(0,0,0,0.05); }
-    .digit-btn.selected { border-color: #3b82f6; background-color: #eff6ff; transform: scale(1.1); }
+        .game-card {
+            background: white;
+            border: 4px solid #475569;
+            box-shadow: 8px 8px 0px #00000020;
+            border-radius: 1.5rem;
+            /* min-height: 600px; REMOVED */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-    /* Blok & Objek */
-    .block10 { width: 30px; height: 30px; border-radius: 4px; background: #f97316; display: inline-block; margin: 2px; border: 2px solid #c2410c; }
-    .block1  { width: 30px; height: 30px; border-radius: 50%; background: #10b981; display: inline-block; margin: 2px; border: 2px solid #047857; }
-    
-    .chip { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 999px; font-weight: bold; border-width: 2px; font-size: 0.9rem; margin-bottom: 0.5rem; width: 100%; }
+        /* Butang 3D */
+        .btn-3d {
+            transition: all 0.1s;
+            border-bottom-width: 6px;
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            cursor: pointer;
+            display: inline-block;
+        }
 
-    /* Aktiviti 4: Beg & Guli */
-    .bag-item { width: 80px; height: 100px; background: #f59e0b; border: 4px solid #b45309; border-radius: 10px 10px 30px 30px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 2rem; position: relative; cursor: grab; box-shadow: 4px 4px 0 #b45309; }
-    .bag-item::after { content:''; position:absolute; top:-10px; width:40px; height:10px; background:#b45309; border-radius:5px; }
-    .marble-item { width: 40px; height: 40px; background: #3b82f6; border: 4px solid #1e40af; border-radius: 50%; cursor: grab; box-shadow: 2px 2px 0 #1e40af; }
-    .drop-area { border: 4px dashed #cbd5e1; background: #f8fafc; transition: all 0.2s; }
-    .drop-area.active { border-color: #3b82f6; background: #eff6ff; }
+        .btn-3d:active:not(:disabled) {
+            transform: translateY(4px);
+            border-bottom-width: 2px;
+            box-shadow: none;
+        }
 
-    /* Aktiviti 5: Rumah */
-    .house-room { min-height: 150px; transition: all 0.3s; border: 4px dashed #e2e8f0; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: bold; color: #475569; }
-    .house-room.correct { background-color: #dcfce7; border-color: #22c55e; color: #15803d; border-style: solid; }
-    .draggable-digit { cursor: grab; touch-action: none; }
-    .draggable-digit:active { cursor: grabbing; transform: scale(1.1); }
+        .btn-3d:disabled {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
-  </style>
+        /* Animasi */
+        .pop-in {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* --- STYLES KHAS AKTIVITI --- */
+        .flip-card {
+            transition: transform 0.1s;
+            cursor: pointer;
+        }
+
+        .flip-card:active {
+            transform: scale(0.95);
+        }
+
+        .digit-btn {
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .digit-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .digit-btn.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            transform: scale(1.1);
+        }
+
+        /* Blok & Objek */
+        .block10 {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            background: #f97316;
+            display: inline-block;
+            margin: 2px;
+            border: 2px solid #c2410c;
+        }
+
+        .block1 {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #10b981;
+            display: inline-block;
+            margin: 2px;
+            border: 2px solid #047857;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-weight: bold;
+            border-width: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+
+        /* Aktiviti 4: Beg & Guli */
+        .bag-item {
+            width: 60px;
+            height: 80px;
+            background: #f59e0b;
+            border: 4px solid #b45309;
+            border-radius: 10px 10px 30px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            cursor: grab;
+            box-shadow: 4px 4px 0 #b45309;
+        }
+
+        .bag-item::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 30px;
+            height: 8px;
+            background: #b45309;
+            border-radius: 5px;
+        }
+
+        .marble-item {
+            width: 30px;
+            height: 30px;
+            background: #3b82f6;
+            border: 4px solid #1e40af;
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 2px 2px 0 #1e40af;
+        }
+
+        .drop-area {
+            border: 4px dashed #cbd5e1;
+            background: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .drop-area.active {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        /* Aktiviti 5: Rumah */
+        .house-room {
+            min-height: 100px;
+            transition: all 0.3s;
+            border: 4px dashed #e2e8f0;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        .house-room.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+            color: #15803d;
+            border-style: solid;
+        }
+
+        .draggable-digit {
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .draggable-digit:active {
+            cursor: grabbing;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
-<body class="min-h-screen text-slate-800 pb-10">
 
-  <div class="fixed top-4 left-0 right-0 z-50 px-4 pointer-events-none">
-    <div class="max-w-4xl mx-auto bg-green-400 border-4 border-green-600 rounded-full px-6 py-3 shadow-xl flex items-center justify-between pointer-events-auto transform hover:scale-[1.01] transition-transform">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl animate-bounce">🔢</span>
-        <span id="info-text" class="text-xl font-bold text-green-900 leading-none mt-1">Nombor 11-20</span>
-      </div>
-      <button id="speak-btn" onclick="speakInfo()" class="bg-white hover:bg-green-50 text-green-600 border-2 border-green-200 rounded-full p-2 transition-colors shadow-sm">🔊</button>
+<body class="h-screen w-screen overflow-hidden text-slate-800 flex flex-col overscroll-none">
+
+    <div class="flex-none p-4 z-50 pointer-events-none w-full">
+        <div
+            class="max-w-4xl mx-auto bg-green-400 border-4 border-green-600 rounded-full px-6 py-3 shadow-xl flex items-center justify-between pointer-events-auto transform hover:scale-[1.01] transition-transform">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl animate-bounce">🔢</span>
+                <span id="info-text" class="text-xl font-bold text-green-900 leading-none mt-1">Nombor 11-20</span>
+            </div>
+            <button id="speak-btn" onclick="speakInfo()"
+                class="bg-white hover:bg-green-50 text-green-600 border-2 border-green-200 rounded-full p-2 transition-colors shadow-sm">🔊</button>
+        </div>
     </div>
-  </div>
-  <div class="h-24"></div>
 
-  <div class="max-w-6xl mx-auto p-4">
-    
-    <div class="game-card p-8 mb-8">
-        <div id="activity-content" class="w-full relative z-10 flex flex-col items-center justify-center h-full transition-opacity duration-200">
-            <div class="py-10 text-center">
-                <div class="text-8xl mb-6 animate-pulse">🎓</div>
-                <h2 class="text-5xl font-bold text-emerald-600 mb-4">Jom Belajar!</h2>
-                <p class="text-2xl text-slate-500 mb-8 font-semibold">5 Aktiviti Interaktif disediakan.</p>
-                <div class="text-4xl animate-bounce mt-4">👇</div>
+    <div class="flex-1 w-full max-w-6xl mx-auto p-2 flex flex-col min-h-0">
+
+        <div class="game-card p-2 mb-2 flex-1 w-full">
+            <div id="activity-content"
+                class="w-full relative z-10 flex flex-col items-center justify-center h-full transition-opacity duration-200">
+                <div class="py-10 text-center">
+                    <div class="text-8xl mb-6 animate-pulse">🎓</div>
+                    <h2 class="text-5xl font-bold text-emerald-600 mb-4">Jom Belajar!</h2>
+                    <p class="text-2xl text-slate-500 mb-8 font-semibold">5 Aktiviti Interaktif disediakan.</p>
+                    <div class="text-4xl animate-bounce mt-4">👇</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-none bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg p-2 border-2 border-white">
+            <h3 class="text-lg font-bold text-slate-700 mb-1 text-center">🎮 Pilih Aktiviti</h3>
+
+            <div class="grid grid-cols-5 gap-2 mb-2">
+                <button onclick="loadActivity(1)"
+                    class="btn-3d bg-blue-500 text-white font-bold py-2 px-1 rounded-xl text-sm md:text-base">🃏
+                    Kad</button>
+                <button onclick="loadActivity(2)"
+                    class="btn-3d bg-orange-500 text-white font-bold py-2 px-1 rounded-xl text-sm md:text-base">📊
+                    Nilai</button>
+                <button onclick="loadActivity(3)"
+                    class="btn-3d bg-pink-500 text-white font-bold py-2 px-1 rounded-xl text-sm md:text-base">🧩
+                    Cerakin</button>
+                <button onclick="loadActivity(4)"
+                    class="btn-3d bg-amber-500 text-white font-bold py-2 px-1 rounded-xl text-sm md:text-base">💰
+                    Beg</button>
+                <button onclick="loadActivity(5)"
+                    class="btn-3d bg-indigo-500 text-white font-bold py-2 px-1 rounded-xl text-sm md:text-base">🏠
+                    Rumah</button>
+            </div>
+
+            <div class="flex justify-center gap-4 border-t-2 border-slate-100 pt-2">
+                <button onclick="clearActivity()"
+                    class="btn-3d bg-slate-400 text-white font-bold py-1 px-4 rounded-full text-base">🏠 Menu</button>
+                <button onclick="nextActivity()"
+                    class="btn-3d bg-green-600 text-white font-bold py-1 px-6 rounded-full text-lg">Seterusnya
+                    ➡️</button>
             </div>
         </div>
     </div>
 
-    <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg p-6 border-2 border-white">
-      <h3 class="text-2xl font-bold text-slate-700 mb-4 text-center">🎮 Pilih Aktiviti</h3>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-        <button onclick="loadActivity(1)" class="btn-3d bg-blue-500 text-white font-bold py-4 px-2 rounded-xl text-lg">🃏 Kad Nombor</button>
-        <button onclick="loadActivity(2)" class="btn-3d bg-orange-500 text-white font-bold py-4 px-2 rounded-xl text-lg">📊 Nilai Tempat</button>
-        <button onclick="loadActivity(3)" class="btn-3d bg-pink-500 text-white font-bold py-4 px-2 rounded-xl text-lg">🧩 Cerakin</button>
-        <button onclick="loadActivity(4)" class="btn-3d bg-amber-500 text-white font-bold py-4 px-2 rounded-xl text-lg">💰 Beg & Guli</button>
-        <button onclick="loadActivity(5)" class="btn-3d bg-indigo-500 text-white font-bold py-4 px-2 rounded-xl text-lg">🏠 Rumah P&S</button>
-      </div>
+    <script>
+        /* --- DATA & SETTINGS --- */
+        const words = {
+            11: 'sebelas', 12: 'dua belas', 13: 'tiga belas', 14: 'empat belas', 15: 'lima belas',
+            16: 'enam belas', 17: 'tujuh belas', 18: 'lapan belas', 19: 'sembilan belas', 20: 'dua puluh'
+        };
 
-      <div class="flex justify-center gap-4 border-t-2 border-slate-100 pt-6">
-        <button onclick="clearActivity()" class="btn-3d bg-slate-400 text-white font-bold py-2 px-6 rounded-full text-lg">🏠 Menu Utama</button>
-        <button onclick="nextActivity()" class="btn-3d bg-green-600 text-white font-bold py-2 px-8 rounded-full text-xl">Seterusnya ➡️</button>
-      </div>
-    </div>
-  </div>
+        let currentActivity = 0;
+        let ttsEnabled = false;
+        let currentInfo = "Pilih aktiviti untuk mula belajar!";
 
-  <script>
-    /* --- DATA & SETTINGS --- */
-    const words = {
-      11:'sebelas', 12:'dua belas', 13:'tiga belas', 14:'empat belas', 15:'lima belas',
-      16:'enam belas', 17:'tujuh belas', 18:'lapan belas', 19:'sembilan belas', 20:'dua puluh'
-    };
-
-    let currentActivity = 0;
-    let ttsEnabled = false;
-    let currentInfo = "Pilih aktiviti untuk mula belajar!";
-    
-    /* --- TTS (Suara) --- */
-    function speak(text) { 
-        if (!ttsEnabled || !('speechSynthesis' in window)) return; 
-        window.speechSynthesis.cancel(); 
-        const u = new SpeechSynthesisUtterance(text); 
-        u.lang = 'ms-MY'; u.rate = 0.9; 
-        const ms = window.speechSynthesis.getVoices().find(v => v.lang === 'ms-MY' || v.lang?.startsWith('ms')); 
-        if (ms) u.voice = ms; 
-        window.speechSynthesis.speak(u); 
-    }
-    
-    function setInfo(text) { 
-        currentInfo = text; 
-        const infoEl = document.getElementById('info-text'); 
-        if(infoEl) {
-            infoEl.style.opacity = 0; 
-            setTimeout(() => { infoEl.textContent = text; infoEl.style.opacity = 1; }, 200); 
+        /* --- TTS (Suara) --- */
+        function speak(text) {
+            if (!ttsEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'ms-MY'; u.rate = 0.9;
+            const ms = window.speechSynthesis.getVoices().find(v => v.lang === 'ms-MY' || v.lang?.startsWith('ms'));
+            if (ms) u.voice = ms;
+            window.speechSynthesis.speak(u);
         }
-    }
-    
-    function speakInfo() { 
-        if (!ttsEnabled) { 
-            ttsEnabled = true; 
-            const btn = document.getElementById('speak-btn');
-            if(btn) btn.classList.add('bg-green-100', 'text-green-600'); 
-        } 
-        speak(currentInfo); 
-    }
 
-    function triggerWin() { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); }
+        function setInfo(text) {
+            currentInfo = text;
+            const infoEl = document.getElementById('info-text');
+            if (infoEl) {
+                infoEl.style.opacity = 0;
+                setTimeout(() => { infoEl.textContent = text; infoEl.style.opacity = 1; }, 200);
+            }
+        }
 
-    /* --- SISTEM NAVIGASI --- */
-    function loadActivity(n) {
-      currentActivity = n;
-      const content = document.getElementById('activity-content');
-      content.style.opacity = 0;
-      
-      setTimeout(() => {
-          if (n === 1) setupAct1(content);
-          else if (n === 2) setupAct2(content);
-          else if (n === 3) setupAct3(content);
-          else if (n === 4) setupAct4(content);
-          else if (n === 5) setupAct5(content);
-          content.style.opacity = 1; 
-      }, 200);
-    }
+        function speakInfo() {
+            if (!ttsEnabled) {
+                ttsEnabled = true;
+                const btn = document.getElementById('speak-btn');
+                if (btn) btn.classList.add('bg-green-100', 'text-green-600');
+            }
+            speak(currentInfo);
+        }
 
-    function clearActivity() {
-        currentActivity = 0;
-        document.getElementById('activity-content').innerHTML = `
+        function triggerWin() { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); }
+
+        /* --- SISTEM NAVIGASI --- */
+        function loadActivity(n) {
+            currentActivity = n;
+            const content = document.getElementById('activity-content');
+            content.style.opacity = 0;
+
+            setTimeout(() => {
+                if (n === 1) setupAct1(content);
+                else if (n === 2) setupAct2(content);
+                else if (n === 3) setupAct3(content);
+                else if (n === 4) setupAct4(content);
+                else if (n === 5) setupAct5(content);
+                content.style.opacity = 1;
+            }, 200);
+        }
+
+        function clearActivity() {
+            currentActivity = 0;
+            document.getElementById('activity-content').innerHTML = `
             <div class="py-10 text-center">
                 <div class="text-8xl mb-6 animate-pulse">🎓</div>
                 <h2 class="text-5xl font-bold text-emerald-600 mb-4">Jom Belajar!</h2>
                 <p class="text-2xl text-slate-500 mb-8 font-semibold">Pilih aktiviti di menu bawah.</p>
             </div>`;
-        setInfo("Pilih aktiviti di bawah.");
-    }
+            setInfo("Pilih aktiviti di bawah.");
+        }
 
-    function nextActivity() { 
-        let next = currentActivity + 1; 
-        if (next > 5) next = 1; 
-        loadActivity(next); 
-    }
+        function nextActivity() {
+            let next = currentActivity + 1;
+            if (next > 5) next = 1;
+            loadActivity(next);
+        }
 
 
-    /* =========================================
-       LOGIK AKTIVITI
-       ========================================= */
+        /* =========================================
+           LOGIK AKTIVITI
+           ========================================= */
 
-    /* --- 1. KAD NOMBOR --- */
-    function setupAct1(content) {
-        setInfo("Klik kad untuk dengar sebutan.");
-        let cardsHtml = '';
-        for(let i=11; i<=20; i++) {
-            cardsHtml += `
-                <button onclick="flipCard(this, ${i})" class="flip-card btn-3d bg-white border-blue-200 text-blue-800 p-4 rounded-2xl min-h-[120px] flex flex-col items-center justify-center shadow-sm">
-                    <div class="main-text text-5xl font-black">${i}</div>
-                    <div class="sub-text text-sm text-slate-400 mt-2 font-bold">Klik Saya</div>
+        /* --- 1. KAD NOMBOR --- */
+        function setupAct1(content) {
+            setInfo("Klik kad untuk dengar sebutan.");
+            let cardsHtml = '';
+            for (let i = 11; i <= 20; i++) {
+                cardsHtml += `
+                <button onclick="flipCard(this, ${i})" class="flip-card btn-3d bg-white border-blue-200 text-blue-800 p-2 rounded-xl min-h-[100px] flex flex-col items-center justify-center shadow-sm">
+                    <div class="main-text text-3xl font-black">${i}</div>
+                    <div class="sub-text text-xs text-slate-400 mt-1 font-bold">Klik Saya</div>
                 </button>
             `;
-        }
-        content.innerHTML = `
+            }
+            content.innerHTML = `
             <div class="w-full max-w-5xl text-center">
-                <h3 class="text-3xl font-bold text-blue-600 mb-6">🃏 Kad Nombor</h3>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                <h3 class="text-3xl font-bold text-blue-600 mb-4">🃏 Kad Nombor</h3>
+                <div class="grid grid-cols-5 gap-2 mb-4">
                     ${cardsHtml}
                 </div>
             </div>
         `;
-    }
-    window.flipCard = function(el, n) {
-        const main = el.querySelector('.main-text');
-        const sub = el.querySelector('.sub-text');
-        if(main.innerText == n) {
-            main.innerText = words[n]; 
-            main.className = "main-text text-2xl font-bold capitalize text-blue-600";
-            sub.innerText = n;
-            speak(words[n]);
-        } else {
-            main.innerText = n; 
-            main.className = "main-text text-5xl font-black text-blue-800";
-            sub.innerText = "Klik Saya";
-            speak(words[n]);
         }
-        el.classList.add('bg-blue-50', 'border-blue-400');
-        setTimeout(() => el.classList.remove('bg-blue-50', 'border-blue-400'), 200);
-    }
+        window.flipCard = function (el, n) {
+            const main = el.querySelector('.main-text');
+            const sub = el.querySelector('.sub-text');
+            if (main.innerText == n) {
+                main.innerText = words[n];
+                main.className = "main-text text-2xl font-bold capitalize text-blue-600";
+                sub.innerText = n;
+                speak(words[n]);
+            } else {
+                main.innerText = n;
+                main.className = "main-text text-5xl font-black text-blue-800";
+                sub.innerText = "Klik Saya";
+                speak(words[n]);
+            }
+            el.classList.add('bg-blue-50', 'border-blue-400');
+            setTimeout(() => el.classList.remove('bg-blue-50', 'border-blue-400'), 200);
+        }
 
-    /* --- 2. NILAI TEMPAT (Eksplorasi) --- */
-    function setupAct2(content) {
-        setInfo("Klik digit untuk lihat nilai Puluh atau Sa.");
-        const examples = [14, 17, 20];
-        let html = '';
-        examples.forEach(n => {
-            let s = String(n);
-            html += `
-                <div class="bg-white border-4 border-slate-200 rounded-3xl p-4 shadow-sm flex flex-col items-center">
-                    <div class="bg-slate-100 rounded-xl p-4 text-6xl font-black text-slate-700 tracking-widest mb-4 flex justify-center gap-2">
-                        <button onclick="showPlace(${n}, 0, this)" class="digit-btn p-3 rounded-lg hover:bg-orange-100 text-orange-600">${s[0]}</button>
-                        <button onclick="showPlace(${n}, 1, this)" class="digit-btn p-3 rounded-lg hover:bg-green-100 text-green-600">${s[1]}</button>
+        /* --- 2. NILAI TEMPAT (Eksplorasi) --- */
+        function setupAct2(content) {
+            setInfo("Klik digit untuk lihat nilai Puluh atau Sa.");
+            const examples = [14, 17, 20];
+            let html = '';
+            examples.forEach(n => {
+                let s = String(n);
+                html += `
+                <div class="bg-white border-4 border-slate-200 rounded-3xl p-2 shadow-sm flex flex-col items-center">
+                    <div class="bg-slate-100 rounded-xl p-2 text-4xl font-black text-slate-700 tracking-widest mb-2 flex justify-center gap-2">
+                        <button onclick="showPlace(${n}, 0, this)" class="digit-btn p-2 rounded-lg hover:bg-orange-100 text-orange-600">${s[0]}</button>
+                        <button onclick="showPlace(${n}, 1, this)" class="digit-btn p-2 rounded-lg hover:bg-green-100 text-green-600">${s[1]}</button>
                     </div>
-                    <div id="explainer-${n}" class="w-full text-sm text-slate-400 min-h-[80px] flex items-center justify-center font-bold bg-slate-50 rounded-lg p-2 border-2 border-dashed border-slate-200">
+                    <div id="explainer-${n}" class="w-full text-xs text-slate-400 min-h-[60px] flex items-center justify-center font-bold bg-slate-50 rounded-lg p-1 border-2 border-dashed border-slate-200">
                         Klik digit di atas
                     </div>
                 </div>`;
-        });
-        content.innerHTML = `<div class="w-full max-w-4xl text-center"><h3 class="text-3xl font-bold text-orange-600 mb-6">📊 Nilai Tempat</h3><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">${html}</div></div>`;
-    }
-    window.showPlace = function(num, index, btn) {
-        const parent = btn.parentElement;
-        parent.querySelectorAll('.digit-btn').forEach(b => b.classList.remove('selected', 'bg-white', 'shadow-sm'));
-        btn.classList.add('selected', 'bg-white', 'shadow-sm');
-        const s = String(num); const digit = parseInt(s[index]); const place = index === 0 ? 'Puluh' : 'Sa'; const val = index === 0 ? digit * 10 : digit;
-        const panel = document.getElementById(`explainer-${num}`);
-        const bgClass = index === 0 ? 'bg-orange-100 border-orange-200 text-orange-800' : 'bg-green-100 border-green-200 text-green-800';
-        panel.innerHTML = `<div class="w-full text-left"><div class="chip ${bgClass}">Tempat: ${place}</div><div class="chip bg-slate-200 border-slate-300 text-slate-700">Nilai: ${val}</div></div>`;
-        const txt = `Digit ${digit} ialah tempat ${place}. Nilainya ${val}.`;
-        speak(txt); setInfo(txt);
-    }
+            });
+            content.innerHTML = `<div class="w-full max-w-4xl text-center"><h3 class="text-3xl font-bold text-orange-600 mb-4">📊 Nilai Tempat</h3><div class="grid grid-cols-3 gap-2 mb-4">${html}</div></div>`;
+        }
+        window.showPlace = function (num, index, btn) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.digit-btn').forEach(b => b.classList.remove('selected', 'bg-white', 'shadow-sm'));
+            btn.classList.add('selected', 'bg-white', 'shadow-sm');
+            const s = String(num); const digit = parseInt(s[index]); const place = index === 0 ? 'Puluh' : 'Sa'; const val = index === 0 ? digit * 10 : digit;
+            const panel = document.getElementById(`explainer-${num}`);
+            const bgClass = index === 0 ? 'bg-orange-100 border-orange-200 text-orange-800' : 'bg-green-100 border-green-200 text-green-800';
+            panel.innerHTML = `<div class="w-full text-left"><div class="chip ${bgClass}">Tempat: ${place}</div><div class="chip bg-slate-200 border-slate-300 text-slate-700">Nilai: ${val}</div></div>`;
+            const txt = `Digit ${digit} ialah tempat ${place}. Nilainya ${val}.`;
+            speak(txt); setInfo(txt);
+        }
 
-    /* --- 3. CERAKIN (Slider) --- */
-    function setupAct3(content) {
-        setInfo("Gerakkan slider untuk pecahkan nombor.");
-        content.innerHTML = `
+        /* --- 3. CERAKIN (Slider) --- */
+        function setupAct3(content) {
+            setInfo("Gerakkan slider untuk pecahkan nombor.");
+            content.innerHTML = `
             <div class="w-full max-w-3xl text-center">
-                <h3 class="text-3xl font-bold text-pink-600 mb-6">🧩 Cerakin Nombor</h3>
-                <div class="bg-white border-4 border-pink-200 rounded-3xl p-8 mb-6 shadow-sm">
-                    <div class="flex justify-between items-center mb-8 px-4">
-                        <span class="text-2xl font-bold text-pink-300">11</span>
-                        <input type="range" min="11" max="20" value="11" class="w-full mx-6 h-6 bg-pink-100 rounded-lg cursor-pointer accent-pink-500" oninput="updateBlocks(this.value)">
-                        <span class="text-2xl font-bold text-pink-300">20</span>
+                <h3 class="text-3xl font-bold text-pink-600 mb-4">🧩 Cerakin Nombor</h3>
+                <div class="bg-white border-4 border-pink-200 rounded-3xl p-4 mb-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <span class="text-xl font-bold text-pink-300">11</span>
+                        <input type="range" min="11" max="20" value="11" class="w-full mx-4 h-6 bg-pink-100 rounded-lg cursor-pointer accent-pink-500" oninput="updateBlocks(this.value)">
+                        <span class="text-xl font-bold text-pink-300">20</span>
                     </div>
-                    <div class="flex items-center justify-center gap-4 mb-8">
-                        <div class="text-6xl font-black text-slate-700" id="big-num">11</div>
-                        <div class="text-xl font-bold text-pink-500 bg-pink-50 px-4 py-2 rounded-full border-2 border-pink-100" id="word-display">sebelas</div>
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="text-5xl font-black text-slate-700" id="big-num">11</div>
+                        <div class="text-lg font-bold text-pink-500 bg-pink-50 px-4 py-1 rounded-full border-2 border-pink-100" id="word-display">sebelas</div>
                     </div>
-                    <div class="flex flex-col md:flex-row gap-4 justify-center items-start bg-slate-50 rounded-2xl p-6 border-2 border-dashed border-slate-200">
-                        <div class="flex-1 w-full"><div class="font-bold text-orange-600 mb-4 text-lg border-b-2 border-orange-100 pb-1">Puluh (10)</div><div id="tens-container" class="min-h-[40px] flex flex-wrap gap-2 justify-center"></div></div>
-                        <div class="flex-1 w-full"><div class="font-bold text-green-600 mb-4 text-lg border-b-2 border-green-100 pb-1">Sa (1)</div><div id="ones-container" class="min-h-[40px] flex flex-wrap gap-2 justify-center"></div></div>
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-start bg-slate-50 rounded-2xl p-2 border-2 border-dashed border-slate-200">
+                        <div class="flex-1 w-full"><div class="font-bold text-orange-600 mb-2 text-base border-b-2 border-orange-100 pb-1">Puluh (10)</div><div id="tens-container" class="min-h-[40px] flex flex-wrap gap-1 justify-center"></div></div>
+                        <div class="flex-1 w-full"><div class="font-bold text-green-600 mb-2 text-base border-b-2 border-green-100 pb-1">Sa (1)</div><div id="ones-container" class="min-h-[40px] flex flex-wrap gap-1 justify-center"></div></div>
                     </div>
                 </div>
             </div>`;
-        setTimeout(() => updateBlocks(11), 100);
-    }
-    window.updateBlocks = function(val) {
-        const bigNum = document.getElementById('big-num'); if(bigNum) bigNum.innerText = val;
-        const wordDisplay = document.getElementById('word-display'); if(wordDisplay) wordDisplay.innerText = words[val];
-        const s = String(val); const puluh = parseInt(s[0]); const sa = parseInt(s[1]);
-        let tensHtml = ''; for(let i=0; i<puluh; i++) tensHtml += '<div class="block10 pop-in"></div>';
-        let onesHtml = ''; for(let i=0; i<sa; i++) onesHtml += '<div class="block1 pop-in"></div>';
-        const tCont = document.getElementById('tens-container'); if(tCont) tCont.innerHTML = tensHtml;
-        const oCont = document.getElementById('ones-container'); if(oCont) oCont.innerHTML = onesHtml || '<span class="text-slate-300 italic text-sm mt-2">Tiada (0)</span>';
-        setInfo(`${words[val]} ialah ${puluh} puluh dan ${sa} sa.`);
-    }
+            setTimeout(() => updateBlocks(11), 100);
+        }
+        window.updateBlocks = function (val) {
+            const bigNum = document.getElementById('big-num'); if (bigNum) bigNum.innerText = val;
+            const wordDisplay = document.getElementById('word-display'); if (wordDisplay) wordDisplay.innerText = words[val];
+            const s = String(val); const puluh = parseInt(s[0]); const sa = parseInt(s[1]);
+            let tensHtml = ''; for (let i = 0; i < puluh; i++) tensHtml += '<div class="block10 pop-in"></div>';
+            let onesHtml = ''; for (let i = 0; i < sa; i++) onesHtml += '<div class="block1 pop-in"></div>';
+            const tCont = document.getElementById('tens-container'); if (tCont) tCont.innerHTML = tensHtml;
+            const oCont = document.getElementById('ones-container'); if (oCont) oCont.innerHTML = onesHtml || '<span class="text-slate-300 italic text-sm mt-2">Tiada (0)</span>';
+            setInfo(`${words[val]} ialah ${puluh} puluh dan ${sa} sa.`);
+        }
 
-    /* --- 4. BEG AJAIB & GULI (Baru) --- */
-    let currentTarget = 0;
-    let currentBagCount = 0;
-    let currentMarbleCount = 0;
+        /* --- 4. BEG AJAIB & GULI (Baru) --- */
+        let currentTarget = 0;
+        let currentBagCount = 0;
+        let currentMarbleCount = 0;
 
-    function setupAct4(content) {
-        currentTarget = Math.floor(Math.random() * 9) + 11; // 11 - 19
-        currentBagCount = 0;
-        currentMarbleCount = 0;
-        setInfo(`Bina nombor ${currentTarget}. Klik Beg (10) dan Guli (1).`);
+        function setupAct4(content) {
+            currentTarget = Math.floor(Math.random() * 9) + 11; // 11 - 19
+            currentBagCount = 0;
+            currentMarbleCount = 0;
+            setInfo(`Bina nombor ${currentTarget}. Klik Beg (10) dan Guli (1).`);
 
-        content.innerHTML = `
+            content.innerHTML = `
             <div class="w-full max-w-4xl text-center">
                 <h3 class="text-3xl font-bold text-amber-600 mb-2">💰 Beg Ajaib & Guli</h3>
-                <p class="text-slate-500 mb-6 text-lg">Soalan: Bina nombor <b>${currentTarget}</b></p>
+                <p class="text-slate-500 mb-4 text-base">Soalan: Bina nombor <b>${currentTarget}</b></p>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-start justify-center">
-                    <div class="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl flex flex-col items-center gap-4">
-                        <span class="font-bold text-amber-800">Ambil Sini</span>
+                <div class="flex flex-col md:flex-row gap-4 items-start justify-center">
+                    <div class="bg-amber-50 border-2 border-amber-200 p-2 rounded-3xl flex flex-col items-center gap-2">
+                        <span class="font-bold text-amber-800 text-sm">Ambil Sini</span>
                         <button onclick="addBag()" class="bag-item hover:scale-105 transition-transform">10</button>
                         <button onclick="addMarble()" class="marble-item hover:scale-105 transition-transform"></button>
                     </div>
 
                     <div class="flex-1 w-full">
-                        <div class="bg-white border-4 border-slate-300 rounded-3xl p-6 min-h-[300px] relative">
-                            <div class="absolute top-4 right-4 text-4xl font-black text-slate-200" id="current-count-display">0</div>
+                        <div class="bg-white border-4 border-slate-300 rounded-3xl p-2 min-h-[220px] relative">
+                            <div class="absolute top-2 right-2 text-2xl font-black text-slate-200" id="current-count-display">0</div>
                             
-                            <div class="flex flex-wrap gap-4 justify-center items-end min-h-[150px] border-b-2 border-dashed border-slate-200 pb-4 mb-4" id="zone-bags">
+                            <div class="flex flex-wrap gap-2 justify-center items-end min-h-[120px] border-b-2 border-dashed border-slate-200 pb-2 mb-2" id="zone-bags">
                                 </div>
-                            <div class="flex flex-wrap gap-2 justify-center min-h-[80px]" id="zone-marbles">
+                            <div class="flex flex-wrap gap-1 justify-center min-h-[60px]" id="zone-marbles">
                                 </div>
                         </div>
-                        <div class="flex gap-4 justify-center mt-4">
-                            <button onclick="setupAct4(document.getElementById('activity-content'))" class="btn-3d bg-slate-400 text-white px-6 py-2 rounded-xl font-bold">Ulang 🔄</button>
-                            <button onclick="checkAct4()" class="btn-3d bg-green-500 text-white px-8 py-2 rounded-xl font-bold text-xl">Semak ✅</button>
+                        <div class="flex gap-4 justify-center mt-2">
+                            <button onclick="setupAct4(document.getElementById('activity-content'))" class="btn-3d bg-slate-400 text-white px-4 py-2 rounded-xl font-bold text-sm">Ulang 🔄</button>
+                            <button onclick="checkAct4()" class="btn-3d bg-green-500 text-white px-6 py-2 rounded-xl font-bold text-lg">Semak ✅</button>
                         </div>
                     </div>
                 </div>
             </div>
         `;
-        speak(`Bina nombor ${currentTarget}.`);
-    }
-
-    window.addBag = function() {
-        const zone = document.getElementById('zone-bags');
-        if(currentBagCount < 2) { // Limit to sensible amount
-            const el = document.createElement('div');
-            el.className = 'bag-item pop-in scale-75';
-            el.innerText = '10';
-            zone.appendChild(el);
-            currentBagCount++;
-            updateAct4Count();
-        } else {
-            speak("Cukup beg puluh.");
+            speak(`Bina nombor ${currentTarget}.`);
         }
-    }
 
-    window.addMarble = function() {
-        const zone = document.getElementById('zone-marbles');
-        if(currentMarbleCount < 10) {
-            const el = document.createElement('div');
-            el.className = 'marble-item pop-in';
-            zone.appendChild(el);
-            currentMarbleCount++;
-            updateAct4Count();
+        window.addBag = function () {
+            const zone = document.getElementById('zone-bags');
+            if (currentBagCount < 2) { // Limit to sensible amount
+                const el = document.createElement('div');
+                el.className = 'bag-item pop-in scale-75';
+                el.innerText = '10';
+                zone.appendChild(el);
+                currentBagCount++;
+                updateAct4Count();
+            } else {
+                speak("Cukup beg puluh.");
+            }
         }
-    }
 
-    function updateAct4Count() {
-        const total = (currentBagCount * 10) + currentMarbleCount;
-        document.getElementById('current-count-display').innerText = total;
-        speak(String(total));
-    }
-
-    window.checkAct4 = function() {
-        const total = (currentBagCount * 10) + currentMarbleCount;
-        if(total === currentTarget) {
-            speak(`Betul! ${currentTarget} ialah ${currentBagCount} beg dan ${currentMarbleCount} guli.`);
-            setInfo("Jawapan Tepat! Tahniah!");
-            triggerWin();
-        } else {
-            speak(`Salah. Anda buat ${total}. Soalan minta ${currentTarget}.`);
-            setInfo(`Cuba lagi. Kurangkan atau tambah guli.`);
-            document.getElementById('current-count-display').classList.add('text-red-500', 'shake');
-            setTimeout(()=>document.getElementById('current-count-display').classList.remove('text-red-500', 'shake'), 500);
+        window.addMarble = function () {
+            const zone = document.getElementById('zone-marbles');
+            if (currentMarbleCount < 10) {
+                const el = document.createElement('div');
+                el.className = 'marble-item pop-in';
+                zone.appendChild(el);
+                currentMarbleCount++;
+                updateAct4Count();
+            }
         }
-    }
 
-    /* --- 5. RUMAH PULUH & SA (Baru) --- */
-    let act5Target = 0;
-    let act5Placed = { puluh: null, sa: null };
+        function updateAct4Count() {
+            const total = (currentBagCount * 10) + currentMarbleCount;
+            document.getElementById('current-count-display').innerText = total;
+            speak(String(total));
+        }
 
-    function setupAct5(content) {
-        act5Target = Math.floor(Math.random() * 9) + 11; // 11-19
-        const s = String(act5Target);
-        act5Placed = { puluh: null, sa: null };
-        setInfo(`Asingkan digit ${s[0]} ke Rumah Puluh, ${s[1]} ke Rumah Sa.`);
+        window.checkAct4 = function () {
+            const total = (currentBagCount * 10) + currentMarbleCount;
+            if (total === currentTarget) {
+                speak(`Betul! ${currentTarget} ialah ${currentBagCount} beg dan ${currentMarbleCount} guli.`);
+                setInfo("Jawapan Tepat! Tahniah!");
+                triggerWin();
+            } else {
+                speak(`Salah. Anda buat ${total}. Soalan minta ${currentTarget}.`);
+                setInfo(`Cuba lagi. Kurangkan atau tambah guli.`);
+                document.getElementById('current-count-display').classList.add('text-red-500', 'shake');
+                setTimeout(() => document.getElementById('current-count-display').classList.remove('text-red-500', 'shake'), 500);
+            }
+        }
 
-        content.innerHTML = `
+        /* --- 5. RUMAH PULUH & SA (Baru) --- */
+        let act5Target = 0;
+        let act5Placed = { puluh: null, sa: null };
+
+        function setupAct5(content) {
+            act5Target = Math.floor(Math.random() * 9) + 11; // 11-19
+            const s = String(act5Target);
+            act5Placed = { puluh: null, sa: null };
+            setInfo(`Asingkan digit ${s[0]} ke Rumah Puluh, ${s[1]} ke Rumah Sa.`);
+
+            content.innerHTML = `
             <div class="w-full max-w-4xl text-center">
-                <h3 class="text-3xl font-bold text-indigo-600 mb-6">🏠 Rumah Puluh & Sa</h3>
+                <h3 class="text-3xl font-bold text-indigo-600 mb-4">🏠 Rumah Puluh & Sa</h3>
                 
-                <div class="flex justify-center gap-8 mb-12">
-                    <div id="digit-1" draggable="true" ondragstart="dragStart(event, '${s[0]}', 'puluh')" class="draggable-digit w-24 h-24 bg-orange-500 text-white rounded-full flex items-center justify-center text-5xl font-bold shadow-lg border-4 border-white cursor-grab active:cursor-grabbing">${s[0]}</div>
-                    <div id="digit-2" draggable="true" ondragstart="dragStart(event, '${s[1]}', 'sa')" class="draggable-digit w-24 h-24 bg-green-500 text-white rounded-full flex items-center justify-center text-5xl font-bold shadow-lg border-4 border-white cursor-grab active:cursor-grabbing">${s[1]}</div>
+                <div class="flex justify-center gap-4 mb-8">
+                    <div id="digit-1" draggable="true" ondragstart="dragStart(event, '${s[0]}', 'puluh')" class="draggable-digit w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-lg border-4 border-white cursor-grab active:cursor-grabbing">${s[0]}</div>
+                    <div id="digit-2" draggable="true" ondragstart="dragStart(event, '${s[1]}', 'sa')" class="draggable-digit w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-lg border-4 border-white cursor-grab active:cursor-grabbing">${s[1]}</div>
                 </div>
 
                 <div class="flex gap-4 justify-center">
-                    <div class="w-40">
-                        <div class="bg-orange-100 text-orange-800 font-bold py-2 rounded-t-lg border-x-4 border-t-4 border-orange-200">Rumah PULUH</div>
+                    <div class="w-32">
+                        <div class="bg-orange-100 text-orange-800 font-bold py-1 rounded-t-lg border-x-4 border-t-4 border-orange-200 text-sm">Rumah PULUH</div>
                         <div id="drop-puluh" ondragover="allowDrop(event)" ondrop="dropDigit(event, 'puluh')" class="house-room bg-white"></div>
                     </div>
 
-                    <div class="w-40">
-                        <div class="bg-green-100 text-green-800 font-bold py-2 rounded-t-lg border-x-4 border-t-4 border-green-200">Rumah SA</div>
+                    <div class="w-32">
+                        <div class="bg-green-100 text-green-800 font-bold py-1 rounded-t-lg border-x-4 border-t-4 border-green-200 text-sm">Rumah SA</div>
                         <div id="drop-sa" ondragover="allowDrop(event)" ondrop="dropDigit(event, 'sa')" class="house-room bg-white"></div>
                     </div>
                 </div>
                 
-                <button onclick="setupAct5(document.getElementById('activity-content'))" class="mt-8 text-slate-400 underline">Soalan Baru</button>
+                <button onclick="setupAct5(document.getElementById('activity-content'))" class="mt-4 text-slate-400 underline text-sm">Soalan Baru</button>
             </div>
         `;
-        speak(`Asingkan nombor ${act5Target}.`);
-    }
-
-    window.dragStart = function(e, val, type) {
-        e.dataTransfer.setData("val", val);
-        e.dataTransfer.setData("type", type); // intended type (hint)
-        e.dataTransfer.setData("id", e.target.id);
-    }
-    window.allowDrop = function(e) { e.preventDefault(); }
-    
-    window.dropDigit = function(e, zoneType) {
-        e.preventDefault();
-        const val = e.dataTransfer.getData("val");
-        const intendedType = e.dataTransfer.getData("type"); // 'puluh' for first digit, 'sa' for second
-        const id = e.dataTransfer.getData("id");
-        
-        // Basic validation: First digit MUST go to Puluh, Second to Sa
-        if(zoneType === intendedType) {
-            e.target.innerText = val;
-            e.target.classList.add('correct');
-            document.getElementById(id).style.visibility = 'hidden'; // Hide source
-            speak("Betul.");
-            
-            // Update Logic State
-            act5Placed[zoneType] = true;
-
-            if(act5Placed.puluh && act5Placed.sa) {
-                setInfo("Tahniah! Rumah Puluh dan Sa dah lengkap!");
-                triggerWin();
-                speak("Tahniah, siap!");
-            }
-        } else {
-            speak("Salah rumah. Cuba lagi.");
-            e.target.style.borderColor = 'red';
-            setTimeout(()=>e.target.style.borderColor = '', 500);
+            speak(`Asingkan nombor ${act5Target}.`);
         }
-    }
 
-  </script>
+        window.dragStart = function (e, val, type) {
+            e.dataTransfer.setData("val", val);
+            e.dataTransfer.setData("type", type); // intended type (hint)
+            e.dataTransfer.setData("id", e.target.id);
+        }
+        window.allowDrop = function (e) { e.preventDefault(); }
+
+        window.dropDigit = function (e, zoneType) {
+            e.preventDefault();
+            const val = e.dataTransfer.getData("val");
+            const intendedType = e.dataTransfer.getData("type"); // 'puluh' for first digit, 'sa' for second
+            const id = e.dataTransfer.getData("id");
+
+            // Basic validation: First digit MUST go to Puluh, Second to Sa
+            if (zoneType === intendedType) {
+                e.target.innerText = val;
+                e.target.classList.add('correct');
+                document.getElementById(id).style.visibility = 'hidden'; // Hide source
+                speak("Betul.");
+
+                // Update Logic State
+                act5Placed[zoneType] = true;
+
+                if (act5Placed.puluh && act5Placed.sa) {
+                    setInfo("Tahniah! Rumah Puluh dan Sa dah lengkap!");
+                    triggerWin();
+                    speak("Tahniah, siap!");
+                }
+            } else {
+                speak("Salah rumah. Cuba lagi.");
+                e.target.style.borderColor = 'red';
+                setTimeout(() => e.target.style.borderColor = '', 500);
+            }
+        }
+
+    </script>
 </body>
+
 </html>
